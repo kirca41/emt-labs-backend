@@ -2,10 +2,12 @@ package mk.ukim.finki.emtlabs.web.rest;
 
 import mk.ukim.finki.emtlabs.model.Book;
 import mk.ukim.finki.emtlabs.model.dto.BookDto;
+import mk.ukim.finki.emtlabs.model.enumerations.Category;
 import mk.ukim.finki.emtlabs.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -52,5 +54,10 @@ public class BookController {
         return this.bookService.markAsTaken(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping("/categories")
+    public List<Category> getCategories() {
+        return Arrays.stream(Category.values()).toList();
     }
 }
