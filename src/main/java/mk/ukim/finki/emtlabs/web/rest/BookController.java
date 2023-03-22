@@ -60,4 +60,11 @@ public class BookController {
     public List<Category> getCategories() {
         return Arrays.stream(Category.values()).toList();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> getBook(@PathVariable Long id) {
+        return this.bookService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
